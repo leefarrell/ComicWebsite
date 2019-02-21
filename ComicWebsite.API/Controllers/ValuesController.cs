@@ -22,6 +22,7 @@ namespace ComicWebsite.API.Controllers
             Context = context;
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
