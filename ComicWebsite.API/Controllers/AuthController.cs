@@ -24,7 +24,7 @@ namespace ComicWebsite.API.Controllers
             _repo = repo;
 
         }
-
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -51,6 +51,7 @@ namespace ComicWebsite.API.Controllers
 
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
