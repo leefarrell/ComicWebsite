@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-      <a class="navbar-brand" href="#">Comic Website</a>
+      <a class="navbar-brand" [routerLink]="['/home']" >Comic Website</a>
     <!--
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -29,16 +29,16 @@
     }
     </style>
  -->
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>
+ <!--<div class="collapse navbar-collapse" id="navbarsExampleDefault"></div>-->
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/home']" >Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Comic</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/comics']" >Comics</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Messages</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active" >Messages</a>
         </li>
       </ul>
 
@@ -47,7 +47,7 @@
           Welcome {{authService.decodedToken?.unique_name | titlecase}}
         </a>
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" href="#"><i class="fa  fa-user"></i>Edit Profile</a>
+          <a class="dropdown-item" href="#"><i class="fa  fa-user"></i> Edit Profile</a>
           <a class="dropdown-divider"></a>
           <a class="dropdown-item" (click)="logout()" href="#"><i class="fa  fa-sign=out"></i>Logout</a>
         </div>
