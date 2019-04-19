@@ -3,38 +3,20 @@ using System;
 using ComicWebsite.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComicWebsite.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190328160254_ExtendedUserClass")]
+    partial class ExtendedUserClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
-
-            modelBuilder.Entity("ComicWebsite.API.Models.Comic", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PhotoUrl");
-
-                    b.Property<DateTime>("Published");
-
-                    b.Property<string>("WriterName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Comics");
-                });
 
             modelBuilder.Entity("ComicWebsite.API.Models.Photo", b =>
                 {

@@ -1,19 +1,17 @@
-
-
 using System;
 using System.Collections.Generic;
+using ComicWebsite.API.Models;
 
-namespace ComicWebsite.API.Models
+namespace ComicWebsite.API.Dtos
 {
-    public class User
+    public class UserDetailsDto
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
         public string Interests {get; set;}
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public string PhotoUrl { get; set;}
+        public ICollection<PhotoDetailsDto> Photos { get; set; }
     }
 }

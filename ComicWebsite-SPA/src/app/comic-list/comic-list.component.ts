@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-comic-list',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComicListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
-
-}
+  }
