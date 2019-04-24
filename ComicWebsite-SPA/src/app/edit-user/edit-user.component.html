@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>{{user?.username | titlecase}}</h1>
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="editForm.dirty" class="alert alert-warning">
+        <strong>Warning: </strong> Any unsaved changes will be lost
+      </div>
+   </div>
+    <div class="col-sm-4">
+      <img class="img-thumbnail" src="{{user?.photoUrl}}" height="300" width="300">
+      <div class="footer">
+          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success w-80 mt-4">Save changes</button>
+      </div>
+    </div>
+    <div class="col-sm-8">
+        <dl>
+            <dt>Userame: </dt>
+            <dd>{{user?.username}}</dd>
+
+            <dt>Created: </dt>
+            <dd>{{user?.created | date}}</dd>
+          </dl>
+          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+              <dt>Interests: </dt>
+                <textarea name="interests" rows="6" cols="50" [(ngModel)]="user.interests"></textarea>
+          </form>
+          <dl>
+
+          </dl>
+          <dl>
+              <dt>Photos </dt>
+              <dd></dd>
+          </dl>
+    </div>
+  </div>
+</div>

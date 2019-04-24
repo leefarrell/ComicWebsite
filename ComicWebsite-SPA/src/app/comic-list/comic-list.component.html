@@ -1,7 +1,17 @@
-<div class="continer">
-  <div class="row">
-    <div>
-      <p>Comics </p>
+<div class="continer mb-4">
+  <div *ngIf="!comicMode">
+    <button class="btn btn-success mt-2 ml-4" (click)="comicToggle()">Add Comic</button>
+    <div class="row">
+      <div *ngFor="let comic of comics" class="section ml-4">
+        <app-sincomic [comic]="comic"></app-sincomic>
+      </div>
     </div>
   </div>
+  <div *ngIf="comicMode" class="container">
+      <div class="row justify-content-center">
+        <div class="col-4">
+            <app-add-comic (cancelAddComic)="cancelComicMode($event)" ></app-add-comic>
+        </div>
+      </div>
+    </div>
 </div>

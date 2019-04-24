@@ -1,0 +1,28 @@
+<form #ComicForm="ngForm" (ngSubmit)="addComic()">
+  <h2 class="text-center text-info">Add Comic</h2>
+  <hr>
+
+  <div class="form-group">
+    <input type="text" class="form-control"  name="name" required [(ngModel)]="model.name" placeholder="Comic Name">
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control"  name="description" required [(ngModel)]="model.description" placeholder="Comic Description">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control"  name="writerName" required [(ngModel)]="model.writerName" placeholder="Writer's Name">
+  </div>
+  <div class="form-group">
+      <label> Date must be Month Day Year E.g July 7 2018</label>
+    <input type="text" class="form-control"  name="published" required [(ngModel)]="model.published" placeholder="Published Date">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control"  name="photoUrl" required [(ngModel)]="model.photoUrl" placeholder="The Photo's URL">
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">Create Comic</button>
+    <button class="btn btn-warning" type="button" (click)="cancel()" >Cancel</button>
+  </div>
+  
+</form>

@@ -12,19 +12,27 @@ namespace ComicWebsite.API.Data
         public ComicRepository(DataContext context){
             _context = context;
         }
-        public void Add<T>(T entity) where T : class
+        public async Task<Comic> AddComic(Comic comic)
         {
-            _context.Add(entity);
+            await _context.Comics.AddAsync(comic);
+            await _context.SaveChangesAsync();
+
+            return comic;
         }
 
-        public void Delete<T>(T entity) where T : class
+        public async Task<Comic> DeleteComic(int id)
         {
-            _context.Remove(entity);
+            var comic = await GetComic(id);
+            _context.Comics.Attach(comic);
+            _context.Comics.Remove(comic);
+            await _context.SaveChangesAsync();
+
+            return comic;
         }
 
         public async Task<Comic> GetComic(int id)
         {
-            var comic = await _context.Comics.FirstOrDefaultAsync(u => u.Id == id);
+            var comic = await _context.Comics.FirstOrDefaultAsync(c => c.Id == id);
 
             return comic;
         }
