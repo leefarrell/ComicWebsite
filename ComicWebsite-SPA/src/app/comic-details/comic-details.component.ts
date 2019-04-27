@@ -5,6 +5,8 @@ import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'app-comic-details',
@@ -14,12 +16,13 @@ import { AuthService } from '../_services/auth.service';
 export class ComicDetailsComponent implements OnInit {
   comic: Comic;
   confirmDelete = false;
-
+  private _options = { headers: new HttpHeaders({'content-type': 'application/json'})};
   // public model: any;
   // public card: any;
+  takePaymentResult: string;
 
   constructor(private comicService: ComicService, private alertify: AlertifyService, private route: ActivatedRoute
-    , private router: Router, private authService: AuthService) {// this.resetModel();
+    , private router: Router, private authService: AuthService, private http: HttpClient) {// this.resetModel();
     }
 
 
@@ -48,46 +51,50 @@ export class ComicDetailsComponent implements OnInit {
       this.router.navigate(['/comics']);
     });
   }
-/*
-  resetModel(): any {
-    this.model = {
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
-      password: '',
-      token: '',
+
+  takePayment(productName: string, amount: number, token: any) {
+    const body = {
+        tokenId: token.id,
+        productName: productName,
+        amount: amount
     };
-    this.card = { number: '', exp_month: '', exp_year: '', cvc: '' };
-  }*/
-  /*
-  purchaseComic() {
-    (<any>window).Stripe.card.createToken(
-      this.card,
-      (status: number, response: any) => {
-        if (status === 200) {
-          this.model.token = response.id;
-          this.http
-            .post('http://localhost:5000/api/comic/3', this.model)
-            .subscribe(
-              result => {
-                this.resetModel();
-                // this.successMessage = 'Thank you for purchasing a ticket!';
-                // console.log(this.successMessage);
-                this.changeDetector.detectChanges();
-              },
-              error => {
-                this.alertify.error('There was a problem registering you.');
-                // this.errorMessage = 'There was a problem registering you.';
-                // console.error(error);
-              }
-            );
-        } else {
-          this.alertify.error('There was a problem purchasing the ticket.');
-         // this.errorMessage = 'There was a problem purchasing the ticket.';
-         // console.error(response.error.message);
-        }
-      }
-    );
-  }*/
+    const bodyString = JSON.stringify(body);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    this.http.post('http://localhost:5000/api/stripepayment/payment', bodyString, this._options)
+        .toPromise()
+        .then((res) => {
+          console.log('success');
+          this.alertify.success('Purchase successful');
+            this.takePaymentResult = 'success';
+        })
+        .catch((error) => {
+            this.takePaymentResult = error.message;
+            this.alertify.success('Purchase successful');
+        });
+
+}
+
+openCheckout(productName: string, amount: number, tokenCallback) {
+    const handler = (<any>window).StripeCheckout.configure({
+        key: 'pk_test_JW5ncLtXvbJueeIDyy5aIrGL00AW8Id8Ld',
+        locale: 'auto',
+        token: tokenCallback
+    });
+
+    handler.open({
+        name: 'Purchase Comic',
+        description: productName,
+        zipCode: false,
+        currency: 'eur',
+        amount: amount,
+        panelLabel: 'Pay {{amount}}',
+        allowRememberMe: false
+    });
+}
+
+buyComic(name) {
+  this.openCheckout(name , 399, (token: any) => this.takePayment(name, 399, token));
+}
 
 }

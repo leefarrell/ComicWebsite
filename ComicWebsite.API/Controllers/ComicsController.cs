@@ -9,8 +9,9 @@ using ComicWebsite.API.Dtos;
 using ComicWebsite.API.Models;
 using ComicWebsite.API;
 using AutoMapper;
+using ComicWebsite.API.Helpers;
 // using Okta.Sdk;
-// using Stripe;
+using Stripe;
 
 namespace ComicWebsite.API.Controllers
 {
@@ -28,10 +29,11 @@ namespace ComicWebsite.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetComics()
+        public async Task<IActionResult> GetComics([FromQuery]PageParameters pageParameters)
         {
-            var comics = await _repo.GetComics();
+            var comics = await _repo.GetComics(pageParameters);
             var returnComics = _mapper.Map<IEnumerable<ComicDto>>(comics);
+            Response.AddPage(comics.CurrentPage, comics.PageSize, comics.TotalCount, comics.TotalPages);
 
             return Ok(returnComics);
         }
@@ -69,17 +71,10 @@ namespace ComicWebsite.API.Controllers
           return StatusCode(201);
 
         }
+
+      
         
  /* 
-    [HttpPost("addcomic")]
-    public async Task<ActionResult<Comic>> CreateAsync([FromBody] Comic buyComic)
-    {
-
-      // ChargeCard(buyComic);
-     // var oktaUser = await RegisterUserAsync(buyComic);
-     // buyComic.UserId = oktaUser.Id;
-     // return Ok(buyComic);
-    }
 
     private async Task<User> RegisterUserAsync(Comic buyComic)
     {
@@ -108,16 +103,15 @@ namespace ComicWebsite.API.Controllers
 
       var options = new StripeChargeCreateOptions
       {
-        Amount = buyComic.Price,
+       // Amount = buyComic.Price,
         Currency = "eur",
-        SourceTokenOrExistingSourceId = buyComic.Token,
+        //SourceTokenOrExistingSourceId = buyComic.Token,
         StatementDescriptor = "Buy Comic"
       };
 
       var service = new StripeChargeService();
       return service.Create(options);
     }
-*/
-
+    */
     }
 }

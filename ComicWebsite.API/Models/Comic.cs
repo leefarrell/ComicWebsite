@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ComicWebsite.API.Models
 {
@@ -10,5 +11,6 @@ namespace ComicWebsite.API.Models
         public string WriterName { get; set; }
         public DateTime Published { get; set; }
         public string PhotoUrl { get; set; }
+        //public ICollection<Like> Likeds { get; set; }
     }
 }

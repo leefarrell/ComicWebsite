@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     this.loadComic();
   }
   loadComic() {
-    this.comicservice.getComics().subscribe((comics: Comic[]) => {
+    this.comicservice.getComicsH().subscribe((comics: Comic[]) => {
       this.comics = comics;
     }, error => {
       this.alertify.error(error);

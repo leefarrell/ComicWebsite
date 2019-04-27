@@ -1,6 +1,25 @@
 <div class="continer mb-4">
   <div *ngIf="!comicMode">
     <button class="btn btn-success mt-2 ml-4" (click)="comicToggle()">Add Comic</button>
+    <div class="text-center mt-3">
+      <h2>Number of comics found is {{paging.totalComics}}</h2>
+    </div>
+        <form class="form-inline" #form="ngForm" (ngSubmit)="loadComic()" novalidate>
+            <div class="form-group">
+              <label for="minDate">Date From</label>
+              <input type="datetime" class="form-control ml-1" style="width: 200px" id="minDate" name="minDate">
+            </div>
+          
+            <div class="form-group px-2">
+              <label for="maxDate">Date To</label>
+              <input type="datetime" class="form-control ml-1" style="width: 200px" id="maxDate" name="maxDate">
+            </div>
+          
+            <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+            <button type="button" class="btn btn-info" style="margin-left:10px">Reset Filter</button>
+          
+          </form>
+          <br>
     <div class="row">
       <div *ngFor="let comic of comics" class="section ml-4">
         <app-sincomic [comic]="comic"></app-sincomic>
@@ -14,4 +33,9 @@
         </div>
       </div>
     </div>
+</div>
+<div class=" d-flex justify-content-center">
+  <pagination [boundaryLinks]="true" [totalItems]="paging.totalComics" [itemsPerPage]="paging.comicsPerPage" [(ngModel)]="paging.currentPage" (pageChanged)="pageChanged($event)"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
 </div>

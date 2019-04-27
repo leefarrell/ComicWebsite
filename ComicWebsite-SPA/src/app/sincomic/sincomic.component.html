@@ -2,7 +2,7 @@
   <div class="row">
     <div class="section">
       <div>
-        <img class="btn" [routerLink]="['/comics/', comic.id]"  src="{{comic.photoUrl}}" height="300" width="300">
+        <img class="btn" [routerLink]="['/comics/', comic.id]"  src="{{comic.photoUrl}}" alt="{{comic?.name}}" height="300" width="300">
       </div>
       <div>
         <p class="name" >{{comic.name}} </p>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ComicWebsite.API.Helpers;
 using ComicWebsite.API.Models;
 
 namespace ComicWebsite.API.Data
@@ -9,7 +10,9 @@ namespace ComicWebsite.API.Data
          Task<Comic> AddComic(Comic comic);
          Task<Comic> DeleteComic(int id) ;
          Task<bool> SaveAll();
-         Task<IEnumerable<Comic>> GetComics();
+         Task<Paging<Comic>> GetComics(PageParameters pageParameters);
+         Task<IEnumerable<Comic>> GetComicsH();
          Task<Comic> GetComic(int id);
+          // Task<Like> GetLike(int userId , int comicId);
     }
 }

@@ -9,7 +9,7 @@
       </div>
    </div>
     <div class="col-sm-4">
-      <img class="img-thumbnail" src="{{user?.photoUrl}}" height="300" width="300">
+      <img class="img-thumbnail" src="{{user?.photoUrl || '../../assets/default.png'}}" height="300" width="300">
       <div class="footer">
           <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success w-80 mt-4">Save changes</button>
       </div>
@@ -29,10 +29,10 @@
           <dl>
 
           </dl>
-          <dl>
-              <dt>Photos </dt>
-              <dd></dd>
-          </dl>
+         <!-- <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUserPhoto()">
+            <dt>Photo: </dt>
+              <textarea name="url" rows="6" cols="50" [(ngModel)]="photo.url"></textarea>
+        </form>  -->
     </div>
   </div>
 </div>

@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using ComicWebsite.API.Helpers;
 using ComicWebsite.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +20,14 @@ namespace ComicWebsite.API.Data
             _context.Add(entity);
         }
 
-        public void Delete<T>(T entity) where T : class
+        public async Task<User> DeleteUser(int id)
         {
-            _context.Remove(entity);
+            var user = await GetUser(id);
+            _context.Users.Attach(user);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return user;
         }
 
         public async Task<User> GetUser(int id)

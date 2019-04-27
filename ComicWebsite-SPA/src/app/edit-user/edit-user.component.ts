@@ -5,6 +5,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { NgForm } from '@angular/forms';
+import { Photo } from '../_models/photo';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,6 +15,7 @@ import { NgForm } from '@angular/forms';
 export class EditUserComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   user: User;
+  photo: Photo;
 
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute,
     private authService: AuthService) { }
@@ -38,4 +40,15 @@ export class EditUserComponent implements OnInit {
       this.alertify.error(error);
     });
   }
+  /*
+  updateUserPhoto() {
+    this.userService.updateUserPhoto(this.authService.decodedToken.nameid, this.photo).subscribe(next => {
+      this.user.photoUrl = this.photo.url;
+      this.alertify.success('Profile updated');
+      this.editForm.reset(this.photo);
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+  */
 }

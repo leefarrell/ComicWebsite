@@ -24,7 +24,7 @@ export class AddComicComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     }, () => {
-      this.router.navigate(['/Home']);
+      this.cancelAddComic.emit(false);
     });
   }
 

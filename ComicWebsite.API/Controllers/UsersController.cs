@@ -41,6 +41,14 @@ namespace ComicWebsite.API.Controllers
             return Ok(returnUser);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            await _repo.DeleteUser(id);
+
+            return StatusCode(201);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userUpdateDto)
         {

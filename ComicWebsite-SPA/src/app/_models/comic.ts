@@ -6,4 +6,5 @@ export interface Comic {
     writerName: string;
     published: Date;
     photoUrl: string;
+    price: number;
 }

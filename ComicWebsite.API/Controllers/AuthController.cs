@@ -38,10 +38,15 @@ namespace ComicWebsite.API.Controllers
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
+            var createdDate = DateTime.Today;
+
             var userToCreate = new User
             {
-                Username = userForRegisterDto.Username
+                
+                Username = userForRegisterDto.Username,
+                Created = createdDate,
             };
+
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
             return StatusCode(201);
